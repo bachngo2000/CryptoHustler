@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 const API_KEY = import.meta.env.VITE_APP_API_KEY;
+import CoinInfo from "./Components/coinInfo";
+
 
 
 function App() {
@@ -22,7 +24,7 @@ function App() {
     fetchAllCoinData().catch(console.error);
   }, []);
 
-  console.log(list.Data)
+  // console.log(list.Data)
 
   // When it comes time to render our actual list of coins, using .map(), we first want to check that our API is not still waiting on results to fill up our list, and 
   // once we know list is not empty, we can display it.
@@ -33,7 +35,12 @@ function App() {
       <ul>
         {list && Object.entries(list.Data).map(([coin]) =>
           list.Data[coin].PlatformType === "blockchain" ? (
-          <li key={list.Data[coin].FullName}>{list.Data[coin].FullName}</li>
+          // <li key={list.Data[coin].FullName}>{list.Data[coin].FullName}</li>
+          <CoinInfo
+            image={list.Data[coin].ImageUrl}
+            name={list.Data[coin].FullName}
+            symbol={list.Data[coin].Symbol}
+          />
           ) : null
         )}
       </ul>
